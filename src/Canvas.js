@@ -3,52 +3,41 @@ import { fabric } from "fabric";
 import { v1 as uuid } from "uuid";
 import axios from "axios";
 import styled from "styled-components";
-import { blue } from "chalk";
 
-const App = () => {
+const Canvas = () => {
   let object = null;
   const [modidiedObject, setModidiedObject] = useState("");
   const [canvas, setCanvas] = useState("");
   const [canAdd, setCanAdd] = useState(true);
 
   const ButtonsContainer = styled.div`
+    width: 100vw;
     display: flex;
-    position: absolute;
-    width: 40%;
-    top: 90%;
-    left: 43%;
-    z-index: 99;
-    align-content: space-around;
+    align-content: space-between;
+    justify-content: center;
+    margin-bottom: -5%;
   `;
 
   const StyledButton = styled.button`
     -moz-transition: all 0.4s ease-in;
     -o-transition: all 0.4s ease-in;
     -webkit-transition: all 0.4s ease-in;
-    background-color: #deb866;
+    background-color: #050e24;
+    color: #ede9e2;
     transition: all 0.4s ease-in;
     padding: 12px 24px;
     font-size: 1.2rem;
     font-family: "Roboto";
-    border-radius: 6px;
     width: 150px;
+    height: 75px;
     cursor: pointer;
-    transition: background-color 0.2 linear, color 0.2 linear;
-    &:hover {
-      background-color: #ca9b46;
-      color: #dbd9db;
-    }
-    &:active {
-      background-color: #b68438;
-      color: #dbd9db;
-    }
   `;
 
   const initCanvas = () =>
     new fabric.Canvas("canv", {
       width: 700,
       height: 500,
-      backgroundColor: "red",
+      backgroundColor: "#050e24",
     });
 
   useEffect(() => {
@@ -78,7 +67,7 @@ const App = () => {
     if (canAdd) {
       if (type === "circle") {
         object = new fabric.Circle({
-          borderColor: blue,
+          fill: "#ede9e2",
           radius: 50,
         });
       }
@@ -100,7 +89,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <div>position your area of interest and click on submit</div>
       <ButtonsContainer>
         <StyledButton type="button" name="circle" onClick={addShape}>
           Add a Circle
@@ -113,6 +101,7 @@ const App = () => {
           alignItems: "center",
           justifyContent: "center",
           marginTop: "200px",
+          marginBottom: "5%",
         }}
       >
         <canvas id="canv" />
@@ -121,4 +110,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Canvas;
