@@ -6,7 +6,9 @@ import styled from "styled-components";
 
 const Canvas = () => {
   let object = null;
-  const [modidiedObject, setModidiedObject] = useState("");
+  let object2 = null;
+  const [modifiedObject, setModifiedObject] = useState("");
+  const [secmodifiedObject, secsetModifiedObject] = useState("");
   const [canvas, setCanvas] = useState("");
   const [canAdd, setCanAdd] = useState(true);
 
@@ -50,10 +52,20 @@ const Canvas = () => {
         if (options.target) {
           console.log(object.getCenterPoint());
           console.log(object.getRadiusX());
-          setModidiedObject({
+          setModifiedObject({
             aoi: {
               center: object.getCenterPoint(),
               radius: object.getRadiusX(),
+            },
+            id: options.target.id,
+          });
+
+          console.log("Objekt2: " + object2.getCenterPoint());
+          console.log("Objekt2: " + object2.getRadiusX());
+          secsetModifiedObject({
+            aoi: {
+              center: object2.getCenterPoint(),
+              radius: object2.getRadiusX(),
             },
             id: options.target.id,
           });
@@ -70,19 +82,32 @@ const Canvas = () => {
           fill: "#ede9e2",
           radius: 50,
         });
+        object.set({ id: uuid() });
+        canvas.add(object);
+
+        object2 = new fabric.Circle({
+          fill: "#ede9e2",
+          radius: 50,
+        });
+        object2.set({ id: uuid() });
+        canvas.add(object2);
       }
 
-      object.set({ id: uuid() });
-      canvas.add(object);
       canvas.renderAll();
       setCanAdd(false);
     }
   };
 
   const handleSubmit = () => {
-    console.log(modidiedObject);
+    console.log(modifiedObject);
+    console.log(secmodifiedObject);
     axios
-      .post("http://localhost:8080", modidiedObject)
+      .post("http://localhost:8080", modifiedObject)
+      .then(() => console.log("aoi created"))
+      .catch((err) => console.log(err));
+
+    axios
+      .post("http://localhost:8080", secmodifiedObject)
       .then(() => console.log("aoi created"))
       .catch((err) => console.log(err));
   };
