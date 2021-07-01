@@ -7,8 +7,8 @@ import styled from "styled-components";
 const Canvas = () => {
   let object = null;
   let object2 = null;
-  const [modifiedObject, setModifiedObject] = useState("");
-  const [secmodifiedObject, secsetModifiedObject] = useState("");
+  let [modifiedObject, setModifiedObject] = useState("");
+  let [secmodifiedObject, secsetModifiedObject] = useState("");
   const [canvas, setCanvas] = useState("");
   const [canAdd, setCanAdd] = useState(true);
 
@@ -50,8 +50,6 @@ const Canvas = () => {
     if (canvas) {
       canvas.on("object:modified", function (options) {
         if (options.target) {
-          console.log(object.getCenterPoint());
-          console.log(object.getRadiusX());
           setModifiedObject({
             aoi: {
               center: object.getCenterPoint(),
@@ -59,9 +57,6 @@ const Canvas = () => {
             },
             id: options.target.id,
           });
-
-          console.log("Objekt2: " + object2.getCenterPoint());
-          console.log("Objekt2: " + object2.getRadiusX());
           secsetModifiedObject({
             aoi: {
               center: object2.getCenterPoint(),
@@ -99,15 +94,10 @@ const Canvas = () => {
   };
 
   const handleSubmit = () => {
-    console.log(modifiedObject);
-    console.log(secmodifiedObject);
+    let newObject = { modifiedObject, secmodifiedObject };
+    console.log(newObject);
     axios
-      .post("http://localhost:8080", modifiedObject)
-      .then(() => console.log("aoi created"))
-      .catch((err) => console.log(err));
-
-    axios
-      .post("http://localhost:8080", secmodifiedObject)
+      .post("http://localhost:8080", newObject)
       .then(() => console.log("aoi created"))
       .catch((err) => console.log(err));
   };
