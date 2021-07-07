@@ -8,6 +8,7 @@ import man_nils from "./assets/img/man_nils.jpg";
 import man_stepan from "./assets/img/man_stepan.jpg";
 import man_pipeline from "./assets/img/man_pipeline.png";
 import man_kirche from "./assets/img/man_kirche.png";
+import logo_manifesto from "./assets/img/logo_manifesto.png";
 import { GlobalStyle } from "./Global";
 
 const Header = styled.div`
@@ -113,7 +114,7 @@ const Homepage = () => {
     <>
       <GlobalStyle />
       <Header>
-        <HeaderTitle>MANIFESTO</HeaderTitle>
+        <Pipeline src={logo_manifesto} />
       </Header>
       <NavBar>
         <NavItem href="#Surface">SURFACE</NavItem>
@@ -145,7 +146,7 @@ const Homepage = () => {
           </ProductVisionText>
         </ProductVision>
         <OurTeam>
-          <OurTeamText>Unser Team</OurTeamText>
+          <OurTeamText>Unser Team:</OurTeamText>
           <OurTeamText>
             Wir sind ein Team aus Stundenten des Studiengangs Internationale
             Medieninformatik an der Hochschule für Technik und Wirtschaft
